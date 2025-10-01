@@ -6,15 +6,45 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Top Academy</title>
+    <style>
+        .form_group{
+        position:relative;
+        background-color: #CCC;
+        top:400px;
+        left:800px;
+        margin:5px;
+        }
+        .error_field{
+        color:red;
+        }
+        .label{
+        font-size:20px;
+        color:green;
+        width:100px;
+        }
+        .button{
+        color:blue;
+        left:900px;
+        }
+
+    </style>
 </head>
 <body>
 <div>
     <form method="POST" action="{% url 'home' %}">
         {% csrf_token %}
-    <table>
-        {{ form }}
-    </table>
-        <input type="submit" value="Зарегистрироватся">
+        {% for i in form %}
+            <div class="form_group label">
+                {{ i.label_tag }}
+            </div>
+            {{ i }}
+        {% endfor %}
+        <div>
+            <input class="form_group button" type="submit" value="Зарегистрироватся">
+        </div>
+
+
+
     </form>
 </div>
 </body>

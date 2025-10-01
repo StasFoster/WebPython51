@@ -5,16 +5,16 @@ from django.contrib.auth import login
 
 # Create your views here.
 def index(request):
-
-    if request.method == "POST":
-        form = forms.MainInfoForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect("index")
-
-    else:
-        form = forms.MainInfoForm()
+    # if request.method == "POST":
+    #     form = forms.MainInfoForm(request.POST)
+    #     if form.is_valid():
+    #         user = form.save()
+    #         login(request, user)
+    #         return redirect("index")
+    #
+    # else:
+    #     form = forms.MainInfoForm()
+    form = forms.EventForm()
     data  = {
         'form': form,
     }

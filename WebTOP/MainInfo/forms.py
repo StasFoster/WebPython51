@@ -3,8 +3,9 @@ from .models import MyUser
 from django.contrib.auth.forms import UserCreationForm
 
 class EventForm(forms.Form):
-    data = forms.CharField()
-    description = forms.CharField()
+    data = forms.CharField(max_length=5, widget=forms.TextInput(attrs={"class":"form_group"}))
+    description = forms.CharField(min_length= 4, max_length=10,widget=forms.TextInput(attrs={"class":"form_group"}))
+    error_css_class = "error_field"
 
 class MainInfoForm(UserCreationForm):
     class Meta:
