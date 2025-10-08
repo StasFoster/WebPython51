@@ -7,38 +7,50 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Top Academy</title>
     <style>
-        .form_group{
-        position:relative;
-        background-color: #CCC;
-        top:400px;
-        left:800px;
-        margin:5px;
-        }
-        .error_field{
-        color:red;
-        }
-        .label{
-        font-size:20px;
-        color:green;
-        width:100px;
-        }
-        .button{
-        color:blue;
-        left:900px;
-        }
+        body {
+    margin: 0;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #CCC;
+}
+
+form {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+}
+
+.form_group {
+    margin: 10px 0;
+}
+
+.label {
+    font-size: 18px;
+    color: green;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.button:hover {
+    background: darkblue;
+}
 
     </style>
 </head>
 <body>
 <div>
-    <form method="POST" action="{% url 'home' %}">
+    <form method="POST">
         {% csrf_token %}
-        {% for i in form %}
+
+            {% for i in form %}
             <div class="form_group label">
                 {{ i.label_tag }}
+                {{ i }}
             </div>
-            {{ i }}
-        {% endfor %}
+            {% endfor %}
+
         <div>
             <input class="form_group button" type="submit" value="Зарегистрироватся">
         </div>
