@@ -41,8 +41,22 @@ form {
 </head>
 <body>
 <div>
-    <form method="POST">
+     <form method="POST">
         {% csrf_token %}
+
+            {% for i in form %}
+            <div class="form_group label">
+                {{ i.label_tag }}
+                {{ i }}
+            </div>
+            {% endfor %}
+
+        <div>
+            <input class="form_group button" type="submit" value="Зарегистрироватся">
+        </div>
+
+
+
     </form>
 </div>
 </body>
