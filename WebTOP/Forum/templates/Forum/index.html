@@ -100,10 +100,12 @@
 <body>
     <header class="header">
         <div class="logo">Форум</div>
+        {% if not is_signin %}
         <div class="auth-buttons">
             <a href="#" class="btn btn-login">Вход</a>
             <a href="{% url 'register' %}" class="btn btn-register">Регистрация</a>
         </div>
+        {% endif %}
     </header>
 
     <div class="container">
