@@ -22,5 +22,6 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('forum/', views.forum , name='forum' ),
+    path('', RedirectView.as_view(pattern_name='forum')),
 
 ]
