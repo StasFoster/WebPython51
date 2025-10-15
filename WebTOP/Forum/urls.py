@@ -18,11 +18,11 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView
+from django.views.generic.base import RedirectView
 from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('forum/', views.forum , name='forum' ),
-
+    path('forum/', views.forum, name='forum'),
+    path('', RedirectView.as_view(pattern_name='forum')),
 ]
