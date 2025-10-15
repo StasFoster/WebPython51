@@ -1,6 +1,6 @@
 from django import forms
 from .models import MyUser
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 class EventForm(forms.Form):
     data = forms.CharField(max_length=5, widget=forms.TextInput(attrs={"class":"form_group"}))
@@ -11,3 +11,8 @@ class MainInfoForm(UserCreationForm):
     class Meta:
         model = MyUser
         fields = ['username', 'password1', 'password2']
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField()
+    password = forms.CharField()
+
