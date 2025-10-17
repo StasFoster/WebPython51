@@ -18,6 +18,7 @@ def index(request):
     else:
         form = forms.MainInfoForm()
     data  = {
+
         'form': form,
     }
     return render(request, 'MainInfo/index.html', data)
