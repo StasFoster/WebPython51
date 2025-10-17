@@ -131,7 +131,11 @@
             <div class="empty-message">
                 Пока нет созданных тем. Будьте первым!
             </div>
-            <button class="btn new-topic-btn">Новая тема</button>
+            {% if user.is_authenticated %}
+                <a href="{% url 'addThread' %}" class="btn new-topic-btn">Новая тема</a>
+            {% else %}
+                <a href="{% url 'registr' %}" class="btn new-topic-btn">Новая тема</a>
+            {% endif %}
         </div>
     </div>
 </body>
