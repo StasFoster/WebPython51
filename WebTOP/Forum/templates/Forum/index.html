@@ -254,7 +254,7 @@
         {% endif %}
     </header>
 
-    <div class="container">
+    <div class="c ontainer">
         <div class="forum-section">
             <h2 class="section-title">Категории</h2>
             <div class="category">
@@ -269,19 +269,25 @@
         </div>
 
         {% for i in threads %}
-    <div class="thread-item">
+    <a  href="{% url 'pageThread' i.id %}" >
+        <div class="thread-item">
         <div class="thread-title">
             {{ i.title }}
             <span class="thread-date">{{ i.data }}</span>
         </div>
         <div class="thread-content">{{ i.content }}</div>
         <div class="thread-author">— {{ i.author }}</div>
-    </div>
+        </div>
+    </a>
+
 {% empty %}
     <div class="empty-message">
         Пока нет созданных тем. Будьте первым!
     </div>
 {% endfor %}
+        <a class="new-topic-btn" href="{% url 'addThread' %}" >Новая тема</a>
     </div>
+
+
 </body>
 </html>

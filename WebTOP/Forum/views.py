@@ -32,3 +32,8 @@ def addThread(request):
     else:
         form = forms.ThreadForm()
     return render(request, "Forum/addThread.html", {"form" : form})
+
+def pageThread(request, id):
+    thread = models.Thread.objects.get(id=id)
+    return render(request, "Forum/page.html", {"thread" : thread})
+
