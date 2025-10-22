@@ -8,6 +8,30 @@
     <title>Document</title>
 </head>
 <body>
-{{ thread.title }}
+<h1>{{ thread.title }}</h1>
+<p><strong>Автор:</strong> {{ thread.author }} | {{ thread.created_at }}</p>
+<hr>
+
+<div class="comments">
+    {% for comment in comments %}
+        <div class="comment">
+            <p>{{ comment.content }}</p>
+            <small>— {{ comment.author }}, {{ comment.created_at }}</small>
+        </div>
+    {% empty %}
+        <p>Пока нет комментариев.</p>
+    {% endfor %}
+</div>
+
+{% if user.is_authenticated %}
+    <h3>Добавить комментарий</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Отправить</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить комментарий.</p>
+{% endif %}
 </body>
 </html>
