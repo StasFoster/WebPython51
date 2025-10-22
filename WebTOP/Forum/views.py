@@ -9,7 +9,10 @@ from . import forms, models
 
 @never_cache
 def forum(request):
-    data = {"is_signin": False}
+    threads = models.Thread.objects.all()
+
+
+    data = {"is_signin": False, "threads": threads}
 
     if request.user.is_authenticated:
         data["is_signin"] = True
