@@ -102,9 +102,12 @@
         <div class="logo">Форум</div>
         {% if not is_signin %}
         <div class="auth-buttons">
-            <p>{{ is_signin }}</p>
-            <a href="#" class="btn btn-login">Вход</a>
+            <a href="{% url 'login'%}" class="btn btn-login">Вход</a>
             <a href="{% url 'register' %}" class="btn btn-register">Регистрация</a>
+        </div>
+        {% else %}
+        <div class="auth-buttons">
+            <a href="{% url 'Logout' %}" class="btn btn-login">Выход</a>
         </div>
         {% endif %}
     </header>
@@ -128,7 +131,7 @@
             <div class="empty-message">
                 Пока нет созданных тем. Будьте первым!
             </div>
-            <button class="btn new-topic-btn">Новая тема</button>
+            <a href="{% url 'addThread' %}" class="btn new-topic-btn">Новая тема</a>
         </div>
     </div>
 </body>
