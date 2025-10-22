@@ -1,14 +1,15 @@
-from django.http import HttpResponse
+# from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.decorators.cache import never_cache
-from django.contrib.auth import logout
+# from django.contrib.auth import logout
 from . import forms,models
 
 
 # Create your views here.
 @never_cache
 def forum(request):
-    data = {"is_signin": False}
+    threads = models.Thread.objects.all()
+    data = {"is_signin": False, "threads": threads}
 
     if request.user.is_authenticated:
         data["is_signin"] = True
@@ -29,6 +30,11 @@ def addThread(request):
     else:
         form = forms.ThreadForm()
     return render(request, 'Forum/AddThread.html', {"form": form})
+
+def pageThreads(request,id):
+    thread = models.Thread.objects.get(id=id)
+    return render(request,"Forum/page.html", {"thread": thread})
+
 
 
 
