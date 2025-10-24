@@ -35,5 +35,17 @@ def addThread(request):
 
 def pageThread(request, id):
     thread = models.Thread.objects.get(id=id)
-    return render(request, "Forum/page.html", {"thread" : thread})
+
+    if request.method == "POST":
+        form = forms.CommentForm(request.POST)
+        if form.is_valid():
+            com = models.Comment(content=form.cleaned_data["content"], author=request.user, thread=thread)
+            com.save()
+            thread.comments.add(com)
+            return render(request, "Forum/page.html", {"thread" : thread, "comments" : thread.comments.all(), "form" : form})
+
+    else:
+        form = forms.CommentForm()
+
+    return render(request, "Forum/page.html", {"thread" : thread, "comments" : thread.comments.all(), "form" : form})
 
