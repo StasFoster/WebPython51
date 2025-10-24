@@ -1,37 +1,311 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{ thread.title }} — Обсуждение</title>
+    <style>
+       * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f8fafc;
+        margin: 0;
+        padding: 0;
+        color: #334155;
+        line-height: 1.6;
+    }
+
+    /* Шапка */
+    .header {
+        background-color: #1e293b;
+        color: white;
+        padding: 16px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.5px;
+    }
+
+    .auth-buttons {
+        display: flex;
+        gap: 12px;
+    }
+
+    .btn {
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 14px;
+        text-align: center;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .btn-login {
+        background-color: transparent;
+        color: white;
+        border: 1px solid #cbd5e1;
+    }
+
+    .btn-login:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn-register {
+        background-color: #3b82f6;
+        color: white;
+        border: none;
+    }
+
+    .btn-register:hover {
+        background-color: #2563eb;
+        transform: translateY(-1px);
+    }
+
+    /* Контейнер */
+    .container {
+        max-width: 900px;
+        margin: 24px auto;
+        padding: 0 20px;
+    }
+
+    /* Блоки разделов */
+    .forum-section {
+        background: white;
+        padding: 24px;
+        margin-bottom: 24px;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+        color: #1e293b;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #e2e8f0;
+        font-weight: 700;
+    }
+
+    /* Категории */
+    .category {
+        padding: 16px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background-color: #f8fafc;
+    }
+
+    .category:hover {
+        background-color: #f1f5f9;
+        border-color: #cbd5e1;
+        transform: translateY(-2px);
+    }
+
+    .category-title {
+        font-weight: 600;
+        color: #0f172a;
+        font-size: 1.1rem;
+    }
+
+
+    .thread-item {
+        background-color: #fff;
+        padding: 16px;
+        margin-bottom: 16px;
+        border-radius: 10px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .thread-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    }
+
+    .thread-title {
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: #1d4ed8;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+
+    .thread-date {
+        font-size: 0.85rem;
+        color: #64748b;
+        font-weight: normal;
+    }
+
+    .thread-content {
+        color: #475569;
+        margin-bottom: 12px;
+        font-size: 0.95rem;
+    }
+
+    .thread-author {
+        text-align: right;
+        font-style: italic;
+        color: #94a3b8;
+        font-size: 0.9rem;
+    }
+
+    /* Сообщение "пусто" */
+    .empty-message {
+        text-align: center;
+        color: #64748b;
+        padding: 40px 20px;
+        font-style: italic;
+    }
+
+
+    .new-topic-btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 24px;
+        background-color: #10b981;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 1rem;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .new-topic-btn:hover {
+        background-color: #059669;
+        transform: translateY(-2px);
+    }
+
+
+    @media (max-width: 600px) {
+        .header {
+            flex-direction: column;
+            gap: 12px;
+            text-align: center;
+        }
+
+        .auth-buttons {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .container {
+            margin: 16px auto;
+            padding: 0 16px;
+        }
+
+        .forum-section {
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+        }
+
+        .new-topic-btn {
+            width: 100%;
+            text-align: center;
+        }
+
+        .thread-title {
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .thread-date {
+            text-align: left;
+        }
+        }
+        .thread-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        .thread-link:hover .thread-title {
+            color: #1d4ed8;
+        }
+        .comment {
+            background: #f8fafc;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 8px;
+            border-left: 3px solid #3b82f6;
+        }
+        .comment-meta {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin-top: 6px;
+        }
+    </style>
 </head>
 <body>
-<h1>{{ thread.title }}</h1>
-<p><strong>Автор:</strong> {{ thread.author }} | {{ thread.created_at }}</p>
-<hr>
-
-<div class="comments">
-    {% for comment in comments %}
-        <div class="comment">
-            <p>{{ comment.content }}</p>
-            <small>— {{ comment.author }}, {{ comment.created_at }}</small>
+    <header class="header">
+        <div class="logo">Обсуждение</div>
+        {% if not is_signin %}
+        <div class="auth-buttons">
+            <a href="{% url 'login' %}" class="btn btn-login">Вход</a>
+            <a href="{% url 'register' %}" class="btn btn-register">Регистрация</a>
         </div>
-    {% empty %}
-        <p>Пока нет комментариев.</p>
-    {% endfor %}
-</div>
+        {% else %}
+        <div class="auth-buttons">
+            <a href="{% url 'forum' %}" class="btn btn-login">Вернуться на форум</a>
+            <a href="{% url 'Logout' %}" class="btn btn-login">Выход</a>
+        </div>
+        {% endif %}
+    </header>
 
-{% if user.is_authenticated %}
-    <h3>Добавить комментарий</h3>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Отправить</button>
-    </form>
-{% else %}
-    <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить комментарий.</p>
-{% endif %}
+    <div class="container">
+        <div class="forum-section">
+            <h1>{{ thread.title }}</h1>
+            <p><strong>Автор:</strong> {{ thread.author }} | {{ thread.data|date:"d.m.Y H:i" }}</p>
+            <hr>
+            <div class="thread-content">
+                {{ thread.content }}
+            </div>
+
+            <h2>Комментарии ({{ comments.count }}):</h2>
+
+            {% for comment in comments %}
+                <div class="comment">
+                    <p>{{ comment.content }}</p>
+                    <div class="comment-meta">
+                        — {{ comment.author }}, {{ comment.created_at|date:"d.m.Y H:i" }}
+                    </div>
+                </div>
+            {% empty %}
+                <p class="empty-message">Пока нет комментариев.</p>
+            {% endfor %}
+
+            {% if user.is_authenticated %}
+                <hr>
+                <h3>Добавить комментарий</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <br><br>
+                    <button type="submit" class="btn btn-register" style="padding: 10px 20px;">Отправить</button>
+                </form>
+            {% else %}
+                <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить комментарий.</p>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>

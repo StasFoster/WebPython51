@@ -1,6 +1,4 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from . import models
 from . import forms
 from django.contrib.auth import login, logout, authenticate
 from django.views.decorators.cache import never_cache
