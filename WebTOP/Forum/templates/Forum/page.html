@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<header>
+    <a href="{% url 'forum' %}">Назад</a>
+</header>
+<h1>{{ thread.title }}</h1>
+<p><strong>Автор:</strong> {{ thread.author }} | {{ thread.data }}</p>
+<hr>
+
+<div class="comments">
+    {% for comment in comments %}
+        <div class="comment">
+            <p>{{ comment.content }}</p>
+            <small>— {{ comment.author }}, {{ comment.date }}</small>
+        </div>
+    {% empty %}
+        <p>Пока нет комментариев.</p>
+    {% endfor %}
+</div>
+
+{% if user.is_authenticated %}
+    <h3>Добавить комментарий</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Отправить</button>
+    </form>
+{% else %}
+    <p><a href="{% url 'login' %}">Войдите</a>, чтобы оставить комментарий.</p>
+{% endif %}
+</body>
+</html>
