@@ -6,6 +6,7 @@ from django.template.defaulttags import comment
 from django.views.decorators.cache import never_cache
 # from django.contrib.auth import logout
 from . import forms,models
+from .models import Product
 
 
 # Create your views here.
@@ -57,6 +58,14 @@ def pageThreads(request,id):
 
 
 
+def products_list(request):
+    
+    products = Product.objects.all()[:3]
+    
+    
+    return render(request, 'Forum/Store', {'Product': products
+      
+    })
 
 
 

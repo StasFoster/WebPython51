@@ -25,5 +25,6 @@ urlpatterns = [
     path('', RedirectView.as_view(pattern_name='forum')),
     path('addThread/', views.addThread , name='addThread' ),
     path('Thread/<int:id>/',views.pageThreads,name="pageThread"),
+    path('store/',views.products_list,name='store'),
 
 ]
